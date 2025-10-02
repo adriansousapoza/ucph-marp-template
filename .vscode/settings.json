@@ -1,0 +1,6 @@
+{
+  "markdown.marp.themes": [
+    "./themes/ucph.css"
+  ],
+  "markdown.marp.html": "all"
+}

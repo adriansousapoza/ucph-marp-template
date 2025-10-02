@@ -1,0 +1,377 @@
+/* @theme ucph */
+
+/*
+   UCPH Marp Theme
+   version: 1.2 (px units only)
+
+   A custom Marp theme for the University of Copenhagen (UCPH).
+   Features:
+   - px-based sizing (1280x720)
+   - Open Sans font
+   - UCPH Red branding
+   - KU logo top-right
+   - Custom list bullets/numbers
+   - Header & Footer
+   - Integrated pagination
+*/
+
+/* 1) Font Import (Open Sans from Google Fonts) */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+/* 1b) Adobe Garamond Pro Font Faces */
+@font-face {
+  font-family: 'Adobe Garamond Pro';
+  src: url('ucph_documents/font/adobe-garamond-pro-2/AGaramondPro-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Adobe Garamond Pro';
+  src: url('ucph_documents/font/adobe-garamond-pro-2/AGaramondPro-Italic.otf') format('opentype');
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Adobe Garamond Pro';
+  src: url('ucph_documents/font/adobe-garamond-pro-2/AGaramondPro-Bold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Adobe Garamond Pro';
+  src: url('ucph_documents/font/adobe-garamond-pro-2/AGaramondPro-BoldItalic.otf') format('opentype');
+  font-weight: bold;
+  font-style: italic;
+}
+
+/* 2) CSS Variables (Custom Properties) */
+:root {
+  --ucph-red: #901a1E;
+  --text-color: #3d3d3d;
+  --text-color-light: #505050;
+  --text-color-blockquote-cite: #777;
+  --bg-color: #ffffff;
+  --bg-blockquote: #f8f8f8;
+  --header-footer-bg: #e8e8e8; /* Header background - medium grey */
+  --footer-bg: var(--ucph-red); /* Footer background */
+  --header-footer-text: #000000; /* Header text color */
+  --footer-text: #ffffff; /* Footer text color (adjust if needed for contrast) */
+  --pagination-text: #ffffff; /* Pagination text color on footer */
+
+  --slide-width: 1280px;
+  --slide-height: 720px;
+  --base-font-size: 25px; /* Base font size used for calculations */
+  --base-line-height: 1.3;
+  --padding-base: 40px; /* Base padding for slide content */
+  --header-height: 54px; /* Total visual height for header */
+  --footer-height: 54px; /* Total visual height for footer */
+  --logo-width: 185px;
+  --logo-height: 41px;
+  --list-indent: 40px; /* Indentation for list items */
+}
+
+/* 3) Basic Slide Setup (using section for Marp context) */
+section {
+  width: var(--slide-width);
+  height: var(--slide-height);
+  font-family: 'Open Sans', sans-serif;
+  font-size: var(--base-font-size);
+  line-height: var(--base-line-height);
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  padding: calc(var(--padding-base) + 10px) var(--padding-base) var(--padding-base) var(--padding-base); /* Extra 20px top padding for space below header */
+  position: relative; /* Needed for absolute positioning of children like header/footer */
+  margin: 0; /* Ensure no default margins */
+  box-sizing: border-box; /* Include padding/border in element's total width/height */
+}
+
+/* 4) Headings */
+section h1, section h2, section h3, section h4, section h5, section h6 {
+  margin: 20px 0 10px 0;
+  line-height: 1.2; /* Adjust line-height for headings */
+}
+
+section h1 { font-size: 56px; color: var(--ucph-red); } /* ~2.0x body */
+section h2 { font-size: 48px; color: var(--ucph-red); } /* ~1.7x body */
+section h3 { font-size: 40px; color: var(--ucph-red); } /* ~1.4x body */
+section h4 { font-size: 36px; color: var(--ucph-red); font-weight: bold; } /* ~1.3x body, Red, Bold */
+section h5 { font-size: 32px; color: var(--header-footer-text); font-weight: bold; } /* ~1.1x body, Black, Bold */
+section h6 { font-size: 28px; color: var(--header-footer-text); font-weight: bold; font-style: italic; } /* 1.0x body, Black, Bold Italic */
+
+/* 5) List Styling */
+section ul, section ol {
+  margin-left: 0; /* Remove default indentation */
+  padding-left: 0; /* Remove default indentation */
+  margin-bottom: 0px; /* Add some space below lists (1em = 28px base font) */
+}
+
+section ul li, section ol li {
+  list-style-type: none; /* Remove default bullet/number */
+  position: relative; /* Needed for ::before positioning */
+  margin-bottom: 0px; /* Space between list items (0.3em = 8.4px -> rounded to 8px of 28px base font) */
+  padding-left: var(--list-indent); /* Create space for custom marker */
+}
+
+/* --- Unordered List Bullets --- */
+/* First-level: bold hollow red circle (⦿) */
+section ul > li::before {
+  content: "⦿";
+  position: absolute;
+  left: 0px;
+  color: var(--ucph-red);
+  font-weight: bold; /* Make the hollow circle bold */
+  display: inline-block; /* Ensure proper spacing/alignment */
+  width: calc(var(--list-indent) - 10px); /* Control width */
+  text-align: center;
+}
+
+/* Second-level: red circle (●) */
+section ul ul > li::before {
+  content: "●";
+  color: var(--ucph-red);
+  font-weight: normal; /* Normal weight */
+  /* Inherits position, left, display, width, text-align */
+}
+
+/* Third-level: black dot (•) */
+section ul ul ul > li::before {
+  content: "•";
+  color: var(--text-color);
+  /* Inherits position, left, display, width, text-align */
+}
+
+/* Fourth-level: black circle (◦) */
+section ul ul ul ul > li::before {
+  content: "◦";
+  color: var(--text-color);
+  /* Inherits position, left, display, width, text-align */
+}
+
+/* --- Ordered List Numbers --- */
+section ol { counter-reset: ordered-list-level1; }
+section ol ol { counter-reset: ordered-list-level2; }
+section ol ol ol { counter-reset: ordered-list-level3; }
+
+/* First-level: 1., 2., ... */
+section ol > li { counter-increment: ordered-list-level1; }
+section ol > li::before {
+  content: counter(ordered-list-level1, decimal) ".";
+  position: absolute;
+  left: 0;
+  color: var(--ucph-red);
+  font-weight: bold;
+  display: inline-block;
+  width: calc(var(--list-indent) - 10px); /* Adjust width as needed */
+  text-align: right; /* Align numbers nicely */
+  padding-right: 10px; /* Space between number and text */
+}
+
+/* Second-level: a., b., ... */
+section ol ol > li { counter-increment: ordered-list-level2; }
+section ol ol > li::before {
+  content: counter(ordered-list-level2, lower-alpha) ".";
+  counter-reset: ordered-list-level1; /* Reset outer counter */
+}
+
+/* Third-level: i., ii., ... */
+section ol ol ol > li { counter-increment: ordered-list-level3; }
+section ol ol ol > li::before {
+  content: counter(ordered-list-level3, lower-roman) ".";
+  counter-reset: ordered-list-level2; /* Reset outer counter */
+}
+
+/* 6) Header & Footer */
+section header, section footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: 0 var(--padding-base); /* Horizontal padding */
+  font-size: 15px; /* Smaller text */
+  box-sizing: border-box;
+  display: flex; /* Use flexbox for alignment */
+  align-items: center; /* Center content vertically */
+  z-index: 100; /* Ensure they are above content, below pagination potentially */
+}
+
+section header {
+  top: 0;
+  height: var(--header-height);
+  background-color: var(--header-footer-bg);
+  color: var(--header-footer-text);
+  justify-content: flex-end; /* Push text to the right */
+  padding-left: calc(var(--logo-width) + var(--padding-base)); /* Make room for logo on left */
+  padding-right: calc(var(--padding-base) - 25px);
+}
+
+section footer {
+  bottom: 0;
+  height: var(--footer-height);
+  background-color: var(--footer-bg);
+  color: var(--footer-text);
+  justify-content: flex-start; /* Keep footer text on the left */
+  padding-left: calc(var(--padding-base) - 25px);
+}
+
+/* KU logo top-left in header */
+section header::before {
+  content: "";
+  position: absolute;
+  top: calc((var(--header-height) - var(--logo-height)) / 2); /* Vertically center logo */
+  left: calc(var(--padding-base) - 25px); /* Align with padding on the left */
+  width: var(--logo-width);
+  height: var(--logo-height);
+  background: url("ucph_documents/mini-logos/mini-logo_composite_logo04.png") no-repeat center center / contain;
+}
+
+/* 7) Pagination (Page Numbers) in Footer */
+/* Page numbers on bottom right */
+section::after {
+  content: attr(data-marpit-pagination) " / " attr(data-marpit-pagination-total);
+  position: absolute;
+  bottom: calc((var(--footer-height) - 15px) / 2); /* Vertically center in footer area */
+  right: calc(var(--padding-base) - 25px); /* Align with padding on the right */
+  color: var(--footer-text);
+  font-size: 15px;
+  font-weight: normal;
+  line-height: 15px;
+  z-index: 150;
+  width: auto;
+  height: auto;
+  padding: 0;
+  margin: 0;
+  background: none;
+  border: none;
+}
+
+/* 8) Blockquote Styling */
+section blockquote {
+  border-left: 5px solid var(--ucph-red);
+  margin: 20px 0 25px var(--padding-base); /* Added 30px top margin for space from header */
+  padding: 10px 25px 10px 25px; /* Removed top padding */
+  background-color: var(--bg-blockquote);
+  font-style: italic;
+  color: var(--text-color-light);
+}
+
+section blockquote p {
+  margin-top: 0; /* Remove top margin from paragraphs inside blockquote */
+}
+
+section blockquote footer,
+section blockquote cite {
+  display: block;
+  font-size: 25px;
+  margin-top: 10px;
+  font-style: normal;
+  text-align: right;
+  color: var(--text-color-blockquote-cite);
+}
+
+section blockquote p:last-child {
+  margin-bottom: 0; /* Remove extra space if followed by cite/footer */
+}
+
+/* 9) Full-Screen Video Styling */
+/* Apply the 'fullscreen-video' class to slides where you want edge-to-edge video */
+section.fullscreen-video {
+  padding: 0;
+}
+
+/* Hide header and footer on fullscreen video slides */
+section.fullscreen-video header,
+section.fullscreen-video footer {
+  display: none;
+}
+
+/* Hide pagination on fullscreen video slides */
+section.fullscreen-video::after {
+  display: none !important;
+}
+
+section.fullscreen-video video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Cover the entire area, maintaining aspect ratio */
+}
+
+/* Black background variant for fullscreen video slides */
+section.fullscreen-video.black-bg {
+  background-color: #000000;
+}
+
+/* Regular video styling (for videos within normal slides with padding) */
+section video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* 10) Title Page Styling */
+/* Apply the 'title-page' class to create a full-screen background title slide */
+section.title-page {
+  padding: 0;
+  background-image: url("ucph_documents/logos/forside.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: 'Adobe Garamond Pro', 'Garamond', serif;
+}
+
+/* Hide header and footer on title page */
+section.title-page header,
+section.title-page footer {
+  display: none;
+}
+
+/* Hide pagination on title page */
+section.title-page::after {
+  display: none !important;
+}
+
+/* Style title page headings with black text and small caps */
+section.title-page h1 {
+  color: #000000;
+  font-size: 72px;
+  margin: 20px 40px;
+  font-family: 'Adobe Garamond Pro', 'Garamond', serif;
+  font-variant: small-caps;
+  letter-spacing: 0.13em; /* 130/1000 em */
+}
+
+section.title-page h2 {
+  color: #000000;
+  font-size: 48px;
+  margin: 10px 40px;
+  font-family: 'Adobe Garamond Pro', 'Garamond', serif;
+  font-variant: small-caps;
+  letter-spacing: 0.13em; /* 130/1000 em */
+}
+
+section.title-page h3 {
+  color: #000000;
+  font-size: 36px;
+  margin: 10px 40px;
+  font-family: 'Adobe Garamond Pro', 'Garamond', serif;
+  font-variant: small-caps;
+  letter-spacing: 0.13em; /* 130/1000 em */
+}
+
+section.title-page p {
+  color: #000000;
+  font-size: 28px;
+  margin: 10px 40px;
+  font-family: 'Adobe Garamond Pro', 'Garamond', serif;
+  font-variant: small-caps;
+  letter-spacing: 0.13em; /* 130/1000 em */
+}
+
