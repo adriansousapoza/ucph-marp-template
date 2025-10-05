@@ -50,14 +50,15 @@
 /* 2) CSS Variables (Custom Properties) */
 :root {
   --ucph-red: #901a1E;
-  --text-color: #3d3d3d;
-  --text-color-light: #505050;
-  --text-color-blockquote-cite: #777;
+  --ucph-grey: #666666;
+  --text-color: #000000;
+  --text-color-light: #000000;
+  --text-color-blockquote-cite: #666666;
   --bg-color: #ffffff;
   --bg-blockquote: #f8f8f8;
-  --header-footer-bg: #e8e8e8; /* Header background - medium grey */
-  --footer-bg: var(--ucph-red); /* Footer background */
-  --header-footer-text: #000000; /* Header text color */
+  --header-bg: var(--ucph-red);
+  --footer-bg: var(--ucph-grey);
+  --header-text: #ffffff; /* Header text color */
   --footer-text: #ffffff; /* Footer text color (adjust if needed for contrast) */
   --pagination-text: #ffffff; /* Pagination text color on footer */
 
@@ -98,12 +99,42 @@ section h1 { font-size: 56px; color: var(--ucph-red); } /* ~2.0x body */
 section h2 { font-size: 48px; color: var(--ucph-red); } /* ~1.7x body */
 section h3 { font-size: 40px; color: var(--ucph-red); } /* ~1.4x body */
 section h4 { font-size: 36px; color: var(--ucph-red); font-weight: bold; } /* ~1.3x body, Red, Bold */
-section h5 { font-size: 32px; color: var(--header-footer-text); font-weight: bold; } /* ~1.1x body, Black, Bold */
-section h6 { font-size: 28px; color: var(--header-footer-text); font-weight: bold; font-style: italic; } /* 1.0x body, Black, Bold Italic */
+section h5 { font-size: 32px; color: var(--header-text); font-weight: bold; } /* ~1.1x body, Black, Bold */
+section h6 { font-size: 28px; color: var(--header-text); font-weight: bold; font-style: italic; } /* 1.0x body, Black, Bold Italic */
+
+/* Code block styling */
+section pre {
+  background-color: #1e1e1e; /* Dark background for code blocks */
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  overflow-x: auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+section pre code {
+  background-color: transparent; /* Remove background from code inside pre */
+  color: #d4d4d4; /* Light text for code blocks */
+  padding: 0;
+  border-radius: 0;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 20px;
+  line-height: 1.5;
+}
+
+/* Inline code styling (not in pre blocks) */
+section :not(pre) > code {
+  background-color: var(--ucph-grey); /* UCPH grey (#5a5a5a) */
+  color: #ffffff; /* White text */
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.9em;
+}
 
 /* 5) List Styling */
 section ul, section ol {
-  margin-left: 0; /* Remove default indentation */
+  margin-left: 25px; /* Add left margin to move entire list from the edge */
   padding-left: 0; /* Remove default indentation */
   margin-bottom: 0px; /* Add some space below lists (1em = 28px base font) */
 }
@@ -116,11 +147,13 @@ section ul li, section ol li {
 }
 
 /* --- Unordered List Bullets --- */
-/* First-level: bold hollow red circle (⦿) */
+/* First-level*/
 section ul > li::before {
-  content: "⦿";
+  content: "●";
   position: absolute;
   left: 0px;
+  top: 0;
+  line-height: inherit; /* Match the line height of the list item text */
   color: var(--ucph-red);
   font-weight: bold; /* Make the hollow circle bold */
   display: inline-block; /* Ensure proper spacing/alignment */
@@ -128,25 +161,31 @@ section ul > li::before {
   text-align: center;
 }
 
-/* Second-level: red circle (●) */
+/* Second-level*/
 section ul ul > li::before {
-  content: "●";
+  content: "○";
   color: var(--ucph-red);
   font-weight: normal; /* Normal weight */
+  top: 0;
+  line-height: inherit;
   /* Inherits position, left, display, width, text-align */
 }
 
-/* Third-level: black dot (•) */
+/* Third-level*/
 section ul ul ul > li::before {
-  content: "•";
-  color: var(--text-color);
+  content: "▸";
+  color: var(--ucph-red);
+  top: 0;
+  line-height: inherit;
   /* Inherits position, left, display, width, text-align */
 }
 
-/* Fourth-level: black circle (◦) */
+/* Fourth-level*/
 section ul ul ul ul > li::before {
-  content: "◦";
-  color: var(--text-color);
+  content: "▹";
+  color: var(--ucph-red);
+  top: 0;
+  line-height: inherit;
   /* Inherits position, left, display, width, text-align */
 }
 
@@ -154,6 +193,7 @@ section ul ul ul ul > li::before {
 section ol { counter-reset: ordered-list-level1; }
 section ol ol { counter-reset: ordered-list-level2; }
 section ol ol ol { counter-reset: ordered-list-level3; }
+section ol ol ol ol { counter-reset: ordered-list-level4; }
 
 /* First-level: 1., 2., ... */
 section ol > li { counter-increment: ordered-list-level1; }
@@ -179,8 +219,15 @@ section ol ol > li::before {
 /* Third-level: i., ii., ... */
 section ol ol ol > li { counter-increment: ordered-list-level3; }
 section ol ol ol > li::before {
-  content: counter(ordered-list-level3, lower-roman) ".";
+  content: counter(ordered-list-level3, upper-roman) ".";
   counter-reset: ordered-list-level2; /* Reset outer counter */
+}
+
+/* Fourth-level: I., II., III., ... */
+section ol ol ol ol > li { counter-increment: ordered-list-level4; }
+section ol ol ol ol > li::before {
+  content: counter(ordered-list-level4, lower-roman) ".";
+  counter-reset: ordered-list-level3; /* Reset outer counter */
 }
 
 /* 6) Header & Footer */
@@ -199,8 +246,8 @@ section header, section footer {
 section header {
   top: 0;
   height: var(--header-height);
-  background-color: var(--header-footer-bg);
-  color: var(--header-footer-text);
+  background-color: var(--header-bg);
+  color: var(--header-text);
   justify-content: flex-end; /* Push text to the right */
   padding-left: calc(var(--logo-width) + var(--padding-base)); /* Make room for logo on left */
   padding-right: calc(var(--padding-base) - 25px);
@@ -215,6 +262,11 @@ section footer {
   padding-left: calc(var(--padding-base) - 25px);
 }
 
+/* Hide footer background when empty */
+section footer:empty {
+  background-color: transparent;
+}
+
 /* KU logo top-left in header */
 section header::before {
   content: "";
@@ -223,7 +275,7 @@ section header::before {
   left: calc(var(--padding-base) - 25px); /* Align with padding on the left */
   width: var(--logo-width);
   height: var(--logo-height);
-  background: url("ucph_documents/mini-logos/mini-logo_composite_logo04.png") no-repeat center center / contain;
+  background: url("ucph_documents/mini-logos/mini-logo_composite_logo16.png") no-repeat center center / contain;
 }
 
 /* 7) Pagination (Page Numbers) in Footer */
@@ -233,7 +285,8 @@ section::after {
   position: absolute;
   bottom: calc((var(--footer-height) - 15px) / 2); /* Vertically center in footer area */
   right: calc(var(--padding-base) - 25px); /* Align with padding on the right */
-  color: var(--footer-text);
+  color: #000; /* Black text by default */
+  background: none;
   font-size: 15px;
   font-weight: normal;
   line-height: 15px;
@@ -242,8 +295,11 @@ section::after {
   height: auto;
   padding: 0;
   margin: 0;
-  background: none;
-  border: none;
+}
+
+/* White pagination when footer has background (has content) */
+section:has(footer:not(:empty))::after {
+  color: #fff;
 }
 
 /* 8) Blockquote Styling */
@@ -274,35 +330,127 @@ section blockquote p:last-child {
   margin-bottom: 0; /* Remove extra space if followed by cite/footer */
 }
 
+/* 9) Table Styling */
+section table {
+  border-collapse: collapse;
+  margin: 20px auto; /* Center the table horizontally with auto margins */
+  font-size: 20px;
+  width: auto; /* Let table size itself based on content */
+  max-width: 90%; /* Don't let it get too wide */
+}
+
+section table thead {
+  background-color: var(--ucph-red);
+  color: #fff;
+}
+
+section table th {
+  padding: 5px 15px;
+  text-align: left;
+  font-weight: bold;
+  border: 1px solid var(--ucph-grey);
+}
+
+section table td {
+  padding: 5px 15px;
+  border: 1px solid var(--ucph-grey);
+}
+
+section table tbody tr:nth-child(even) {
+  background-color: #f9f9f9; /* Zebra striping for better readability */
+}
+
+section table tbody tr:hover {
+  background-color: #f0f0f0; /* Highlight on hover */
+}
+
+/* 10) Full-Screen Video Styling */
+
+section blockquote footer,
+section blockquote cite {
+  display: block;
+  font-size: 25px;
+  margin-top: 10px;
+  font-style: normal;
+  text-align: right;
+  color: var(--text-color-blockquote-cite);
+}
+
+section blockquote p:last-child {
+  margin-bottom: 0; /* Remove extra space if followed by cite/footer */
+}
+
 /* 9) Full-Screen Video Styling */
-/* Apply the 'fullscreen-video' class to slides where you want edge-to-edge video */
-section.fullscreen-video {
+/* Apply video classes to slides for automatic video backgrounds */
+/* Classes: video_intro_white_uk, video_intro_white_dk, video_intro_black_uk, video_intro_black_dk,
+            video_outro_white_uk, video_outro_white_dk, video_outro_black_uk, video_outro_black_dk */
+
+section.video_intro_white_uk,
+section.video_intro_white_dk,
+section.video_intro_black_uk,
+section.video_intro_black_dk,
+section.video_outro_white_uk,
+section.video_outro_white_dk,
+section.video_outro_black_uk,
+section.video_outro_black_dk {
   padding: 0;
 }
 
-/* Hide header and footer on fullscreen video slides */
-section.fullscreen-video header,
-section.fullscreen-video footer {
+/* Hide header and footer on video slides */
+section.video_intro_white_uk header,
+section.video_intro_white_dk header,
+section.video_intro_black_uk header,
+section.video_intro_black_dk header,
+section.video_outro_white_uk header,
+section.video_outro_white_dk header,
+section.video_outro_black_uk header,
+section.video_outro_black_dk header,
+section.video_intro_white_uk footer,
+section.video_intro_white_dk footer,
+section.video_intro_black_uk footer,
+section.video_intro_black_dk footer,
+section.video_outro_white_uk footer,
+section.video_outro_white_dk footer,
+section.video_outro_black_uk footer,
+section.video_outro_black_dk footer {
   display: none;
 }
 
-/* Hide pagination on fullscreen video slides */
-section.fullscreen-video::after {
+/* Hide pagination on video slides */
+section.video_intro_white_uk::after,
+section.video_intro_white_dk::after,
+section.video_intro_black_uk::after,
+section.video_intro_black_dk::after,
+section.video_outro_white_uk::after,
+section.video_outro_white_dk::after,
+section.video_outro_black_uk::after,
+section.video_outro_black_dk::after {
   display: none !important;
 }
 
-section.fullscreen-video video {
+/* Black background for black variant video slides */
+section.video_intro_black_uk,
+section.video_intro_black_dk,
+section.video_outro_black_uk,
+section.video_outro_black_dk {
+  background-color: #000000;
+}
+
+/* Style video elements inside video slides */
+section.video_intro_white_uk video,
+section.video_intro_white_dk video,
+section.video_intro_black_uk video,
+section.video_intro_black_dk video,
+section.video_outro_white_uk video,
+section.video_outro_white_dk video,
+section.video_outro_black_uk video,
+section.video_outro_black_dk video {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Cover the entire area, maintaining aspect ratio */
-}
-
-/* Black background variant for fullscreen video slides */
-section.fullscreen-video.black-bg {
-  background-color: #000000;
+  object-fit: cover;
 }
 
 /* Regular video styling (for videos within normal slides with padding) */
@@ -375,3 +523,49 @@ section.title-page p {
   letter-spacing: 0.13em; /* 130/1000 em */
 }
 
+/* 11) Utility Classes */
+/* Center text */
+.center-text {
+  text-align: center;
+}
+
+/* Multi-column layouts */
+.columns {
+  display: grid;
+  gap: 40px;
+}
+
+.columns-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.columns-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 30px;
+}
+
+/* For unequal columns */
+.columns-2-left {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 40px;
+}
+
+.columns-2-right {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 40px;
+}
+
+/* Column items */
+.columns > div,
+.columns-2 > div,
+.columns-3 > div,
+.columns-2-left > div,
+.columns-2-right > div {
+  display: flex;
+  flex-direction: column;
+}
