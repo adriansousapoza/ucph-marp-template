@@ -99,8 +99,8 @@ section h1 { font-size: 56px; color: var(--ucph-red); } /* ~2.0x body */
 section h2 { font-size: 48px; color: var(--ucph-red); } /* ~1.7x body */
 section h3 { font-size: 40px; color: var(--ucph-red); } /* ~1.4x body */
 section h4 { font-size: 36px; color: var(--ucph-red); font-weight: bold; } /* ~1.3x body, Red, Bold */
-section h5 { font-size: 32px; color: var(--header-text); font-weight: bold; } /* ~1.1x body, Black, Bold */
-section h6 { font-size: 28px; color: var(--header-text); font-weight: bold; font-style: italic; } /* 1.0x body, Black, Bold Italic */
+section h5 { font-size: 32px; color: #000000; font-weight: bold; } /* ~1.1x body, Black, Bold */
+section h6 { font-size: 28px; color: #000000; font-weight: bold; font-style: italic; } /* 1.0x body, Black, Bold Italic */
 
 /* Code block styling */
 section pre {
