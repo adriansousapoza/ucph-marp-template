@@ -201,6 +201,18 @@ Carl Rasmussen, 1875
 
 ---
 
+## YouTube Videos
+
+<center>
+
+**You can embed YouTube videos using an iframe (*'Share'* video and then select *'Embed'*)**
+
+<iframe width="700" height="400" src="https://www.youtube.com/embed/IuMoGbAam-U?si=a_GcCW1BgEOgTiFF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+</center>
+
+---
+
 ## Code Blocks
 
 ```python
@@ -220,6 +232,8 @@ print(f"Fibonacci sequence: {numbers}")
 
 
 ---
+
+
 
 
 
