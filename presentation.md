@@ -207,7 +207,7 @@ Carl Rasmussen, 1875
 
 **You can embed YouTube videos using an iframe (*'Share'* video and then select *'Embed'*)**
 
-<iframe width="700" height="400" src="https://www.youtube.com/embed/IuMoGbAam-U?si=a_GcCW1BgEOgTiFF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/IuMoGbAam-U?si=jTNSppnGo9ZhbE0L&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 </center>
 
