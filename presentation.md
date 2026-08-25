@@ -170,11 +170,11 @@ This slide demonstrates combining numbered and itemized list:
 | 9 | Standard German | Germany | 98,000,000 |
 | 10 | Wu Chinese | China | 77,175,000 |
 
-<center>
+<div class="center-text">
 
 **Top 10 Most Spoken Languages** • *By first language speakers worldwide (Feb 1999)*
 
-</center>
+</div>
 
 ---
 
@@ -190,26 +190,32 @@ where $x$ is a real $k$-dimensional column vector and $|{\boldsymbol {\Sigma }}|
 
 ## Images
 
-<center>
+<div class="center-text">
 
 ![width:600px](https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/I._E._C._Rasmussen_-_Sommernat_under_den_Gr%C3%B8nlandske_Kyst_circa_Aar_1000.jpg/1920px-I._E._C._Rasmussen_-_Sommernat_under_den_Gr%C3%B8nlandske_Kyst_circa_Aar_1000.jpg)
 
 *Summer Night Off the Greenland Coast Circa Year 1000*
 Carl Rasmussen, 1875
 
-</center>
+</div>
 
 ---
 
 ## YouTube Videos
 
-<center>
+<div class="center-text">
 
-**You can embed YouTube videos using an iframe (*'Share'* video and then select *'Embed'*)**
+**Click the thumbnail to watch on YouTube**
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/IuMoGbAam-U?si=jTNSppnGo9ZhbE0L&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<!-- A live <iframe> embed breaks with "Error 153" when this deck is exported
+     to HTML and opened as a local file (YouTube requires a real page origin).
+     A linked thumbnail works everywhere, including a plain double-clicked
+     export, and needs no special Marp HTML settings. -->
+<a class="youtube-thumb" href="https://www.youtube.com/watch?v=IuMoGbAam-U" target="_blank" rel="noopener">
+  <img src="https://img.youtube.com/vi/IuMoGbAam-U/hqdefault.jpg" alt="How to Fight Populism? Michael Sandel on Renewing the Dignity of Work — YouTube video" width="480">
+</a>
 
-</center>
+</div>
 
 ---
 

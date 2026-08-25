@@ -569,3 +569,40 @@ section.title-page p {
   display: flex;
   flex-direction: column;
 }
+
+/* YouTube thumbnail link (see "YouTube Videos" slide) */
+/* Static <img> + <a href> instead of a live <iframe>, so it also works when
+   the exported HTML is opened as a local file. */
+.youtube-thumb {
+  position: relative;
+  display: inline-block;
+  line-height: 0;
+}
+
+.youtube-thumb img {
+  display: block;
+  border-radius: 8px;
+}
+
+.youtube-thumb::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 68px;
+  height: 48px;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 12px;
+  transform: translate(-50%, -50%);
+}
+
+.youtube-thumb::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-style: solid;
+  border-width: 12px 0 12px 20px;
+  border-color: transparent transparent transparent #ffffff;
+  transform: translate(-40%, -50%);
+}

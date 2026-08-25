@@ -22,15 +22,22 @@ code .
 
 Or use **File → Open Folder** in VS Code.
 
-> **Important**
-> You must open the `ucph-marp-template` folder directly. The UCPH theme will not load if you open a parent or different directory.
+> **Important — theme loading and workspace roots**
+> The Marp for VS Code extension only reads `.vscode/settings.json` from the folder you actually open (`File → Open Folder`). If you open a *parent* folder instead of `ucph-marp-template` itself, this repo's `.vscode/settings.json` is invisible to VS Code, so the `ucph` theme is never registered — even though `presentation.md` and `themes/ucph.css` are still sitting right next to each other. (The setting is also resolved relative to whatever folder *is* open, not relative to the `.md` file, so a copied/relative path wouldn't help either — see [marp-vscode#themes.ts](https://github.com/marp-team/marp-vscode/blob/main/src/themes.ts).)
 >
-> If you prefer a different working directory, copy `.vscode/settings.json` into it and update the theme path:
-> ```json
-> "markdown.marp.themes": [
->   "./themes/ucph.css"
-> ]
-> ```
+> **Fix (one-time, per machine):** add the theme to your VS Code **User** settings (not this repo's settings) via a stable URL, so it registers no matter which folder you open:
+>
+> 1. `Ctrl+Shift+P` → **Preferences: Open User Settings (JSON)**
+> 2. Add:
+>    ```json
+>    "markdown.marp.themes": [
+>      "https://raw.githubusercontent.com/adriansousapoza/ucph-marp-template/main/themes/ucph.css"
+>    ]
+>    ```
+>
+> This only takes effect when no workspace-level `markdown.marp.themes` is set. Opening `ucph-marp-template` directly still uses this repo's own `.vscode/settings.json` (the local `./themes/ucph.css`), so theme edits preview instantly with no internet needed in that case. Open a different parent folder instead, and the User-level remote URL takes over automatically. The only requirement stays exactly what you'd expect: `presentation.md` and the `ucph_documents/` folder need to sit in the same folder — everything else (videos, fonts, logos, background images) is already resolved relative to the `.md` file, not the workspace root.
+>
+> Every tag this template actually uses (`<div>`, `<video>`, `<a>`, `<img>`, …) is already in [Marp's default HTML allow list](https://github.com/marp-team/marp-core/blob/main/src/html/allowlist.ts), so `markdown.marp.html: "all"` is not required — the "YouTube Videos" slide links a static thumbnail instead of embedding a live `<iframe>`, since a real embed breaks with a YouTube "Error 153" once the deck is exported to HTML and opened as a local file (no page origin for YouTube to validate against). If you add your own slide with a tag outside the default allow list, you'll need `markdown.marp.html: "all"` for that one — same User-settings scoping trade-off as above.
 
 ### 3. Start creating
 
